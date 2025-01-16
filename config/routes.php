@@ -2,11 +2,15 @@
 
 // Define app routes
 
-use App\Action\Home\HomeAction;
-use App\Action\Home\PingAction;
+use App\Infrastructure\Controller\ProjectController;
 use Slim\App;
 
 return function (App $app) {
-    $app->get('/', HomeAction::class)->setName('home');
-    $app->get('/ping', PingAction::class);
+    $app->post('/api/projects', [ProjectController::class, 'store']);
+
+//    $app->group('/api', function (RouteCollectorProxy $group) {
+//        $group->group('/projects', function (RouteCollectorProxy $group) {
+//            $group->post('/add-project', [ProjectController::class, 'store']);
+//        });
+//    });
 };

@@ -2,12 +2,12 @@
 
 namespace App\Domain\Repository;
 
-use App\Domain\Model\Project;
+use App\Domain\Model\Blog;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Exception;
 
-class ProjectRepository
+class BlogRepository
 {
     private EntityManager $entityManager;
 
@@ -19,13 +19,13 @@ class ProjectRepository
     /**
      * @throws Exception
      */
-    public function saveAndFlush(Project $project): Project
+    public function saveAndFlush(Blog $blog): Blog
     {
         try {
-            $this->entityManager->persist($project);
+            $this->entityManager->persist($blog);
             $this->entityManager->flush();
 
-            return $project;
+            return $blog;
         } catch (ORMException $e) {
             throw new Exception($e->getMessage());
         }

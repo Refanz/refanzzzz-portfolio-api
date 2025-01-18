@@ -10,22 +10,22 @@ use Psr\Container\ContainerInterface;
 class ProjectService
 {
     private ContainerInterface $container;
+    private ProjectRepository $projectRepository;
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->projectRepository = $this->container->get(ProjectRepository::class);
     }
 
-    public function addProject(ProjectRequest $project): Project
+    public function addProject(ProjectRequest $request): Project
     {
         $project = new Project(
-            $project->getTitle(),
-            $project->getCategory(),
-            $project->getDescription()
+            $request->getTitle(),
+            $request->getCategory(),
+            $request->getDescription()
         );
 
-        $this->container->get(ProjectRepository::class)->saveAndFlush($project);
-
-        return $project;
+        return $this->projectRepository->saveAndFlush($project);
     }
 }
